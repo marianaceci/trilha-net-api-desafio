@@ -1,0 +1,64 @@
+dotnet new webapi - para começar
+
+dotnet watch run - para rodar 
+
+CONTROLLER:
+    - é uma classe que agrupa as suas requisições HTTP, e vai disponibilizar os seus endpoints;
+    - domínio/agrupamento de classes em comum
+    -o jeito como a classe Controller é nomeada é como teremos acesso a essa API
+
+//A ferramenta 'dotnet-ef' (versão '6.0.9') foi instalada com êxito.
+
+instalar pacote do Entity Framework: 
+    dotnet add package Microsoft.EntityFrameworkCore.Design
+    dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+
+CONTEXTO:
+    - classe que centraliza todas as nossas informaçoes em determinado banco de dados
+    - faz ligação com o banco de dados
+
+ENDPOINTS:
+    - métodos
+    *lembrar de chamar o '_context.SaveChanges();' ao fim dos endpoints.
+    *lembrar de retornar - 'return Ok()', ou 'return NotFound()'
+
+ENTIDADE: 
+    - uma classe no nosso programa e uma tabela no BD
+
+CONEXÃO:
+    - appsettings.json --> para produção/implantar em ambiente real. (ex: envia e-mail aos usuarios);
+
+    - appsettings.Development.json --> para testes e desenvolvimento (ex: não envia e-mail aos usuários). Configuaração de conexão:
+        "ConnectionStrings": {
+        "ConexaoPadrao": "Server=localhost\\sqlexpress; Initial Catalog=Agenda; Integrated Security=True" // string de conexão para SQL Express Local
+        }
+
+*Contato.cs, AgendaContext e DbSet se transformarão em tabela no banco de dados*
+
+MIGRATIONS: 
+    - espelha as classes no banco de dados
+    - mapeamento que o Entity faz das nossas classes para poder transformá-las em tabelas
+    - server deve estar rodando
+    - gerar migrations:
+        - dotnet-ef migrations add CriacaoTabelaContato --> criação da migration(pasta Migrations com arquivos .cs)
+    - criar/aplicar migrations no banco de dados:    
+        - dotnet-ef database update --> aplicação da migration/comando SQL automático para criação da tabela no BD
+    - tabela criada no banco de dados
+
+INSERIR REGISTROS NA TABELA por endpoints no ContatoController.cs
+
+VERBOS HTTP - CRUD - IActionResult
+    - post = CREATE = informação nova ou atualizada;
+    - get = READ = obter, retorno de informação;
+    - put = UPDATE = atualização de informação COMPLETA;
+    - patch = UPDATE = atualizações e modificações DE INFORMAÇÕES PARCIAIS;
+    - delete = deleta.
+
+INJEÇÃO DE DEPENDÊNCIA: 
+    propriedade chamada '_context' esta na 'AgendaContext';
+    'context' que estou recebendo, vai no construtor:
+        '_context = context;'
+
+
+
+
